@@ -33,6 +33,15 @@ describe('micromark-extension-wiki-link', () => {
     assert.equal(serialized, '<p><a href="#/page/real_page" class="internal new">Page Alias</a></p>');
   });
 
+  it("handles broken wiki links", () => {
+    let serialized = micromark('t[[\nt', {
+      extensions: [syntax()],
+      htmlExtensions: [html()]
+    });
+
+    assert.equal(serialized, '<p>t[[\nt</p>');
+  });
+
   it("handles wiki links with a custom alias divider", () => {
     let serialized = micromark('[[Real Page|Page Alias]]', {
       extensions: [syntax({ aliasDivider: "|" })],

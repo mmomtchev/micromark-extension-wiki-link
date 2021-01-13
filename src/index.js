@@ -43,6 +43,10 @@ function wikiLink (opts = {}) {
     }
 
     function consumeData (code) {
+      if (code < 0) {
+        effects.exit('wikiLink')
+        return consumeEnd
+      }
       effects.enter('wikiLinkData')
       effects.enter('wikiLinkTarget')
       return consumeTarget
