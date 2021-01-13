@@ -42,6 +42,24 @@ describe('micromark-extension-wiki-link', () => {
     assert.equal(serialized, '<p>t[[\nt</p>');
   });
 
+  it("handles broken wiki links #2", () => {
+    let serialized = micromark('t [[', {
+      extensions: [syntax()],
+      htmlExtensions: [html()]
+    });
+
+    assert.equal(serialized, '<p>t </p>');
+  });
+
+  it("handles broken wiki links #3", () => {
+    let serialized = micromark('t [[tt\nt', {
+      extensions: [syntax()],
+      htmlExtensions: [html()]
+    });
+
+    assert.equal(serialized, '<p>t [[tt\nt</p>');
+  });
+
   it("handles wiki links with a custom alias divider", () => {
     let serialized = micromark('[[Real Page|Page Alias]]', {
       extensions: [syntax({ aliasDivider: "|" })],

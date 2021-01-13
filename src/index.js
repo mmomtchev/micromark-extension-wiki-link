@@ -68,6 +68,13 @@ function wikiLink (opts = {}) {
         return consumeEnd
       }
 
+      if (code < 0) {
+        effects.exit('wikiLinkTarget')
+        effects.exit('wikiLinkData')
+        effects.exit('wikiLink')
+        return consumeEnd
+      }
+
       if (!(code < 0 || code === 32)) {
         data = true
       }
